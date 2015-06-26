@@ -5,7 +5,6 @@ module.exports = function(grunt) {
         copy: {
             main: {
                 files: [
-                    // includes files within path
                     {
                         expand: true,
                         flatten: true,//去掉目录
