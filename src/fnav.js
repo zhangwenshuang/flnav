@@ -1,6 +1,6 @@
 /**
  *
- * @authors 张文双 (wyzxzws@126.com)
+ * @authors 张文双 (zhangwenshuang@edaijia-in.cn)
  * @date    2015-06-25 10:15:59
  * @description 侧边栏浮动导航
  * @version 1.0
@@ -33,16 +33,16 @@
             oHead.appendChild(oScript);
         }
     }
-    loadScript("http://libs.baidu.com/jquery/1.9.1/jquery.min.js", function() {
-        var FLNav = function(opts) {
+    loadScript("http://h5.edaijia.cn/core/libs/jquery.min.js", function() {
+        var FNav = function(opts) {
             this.opts = opts || {};
             this.init();
         };
-        FLNav.prototype = {
+        FNav.prototype = {
             defaults: {
                 rootLen: 0,
                 cIndex: 0,
-                container: "<div id='edj-v2-fnav-box' class='edj-v2-fnav-box'><ul class='edj-v2-fnavs'></ul><div id='edj-v2-fnav-switch' class='edj-v2-fnav-switch'><div class='edj-v2-fnav-btn'></div></div></div>"
+                container: "<div id='edj-v2-hnav' class='edj-v2-hnav'><img class='edj-v2-logo' src='SLogo.png'/><form title='可输入订单号、手机号、司机工号' target='mainFrame' action='http://www.d.edaijia.cn/v2/index.php?r=system/search' method='get'><input type='hidden' value='system/search' name='r'><div><img src='Icon_Search.png' id='edj_v2_submit'/><input id='edj-v2-search' placeholder='司机/订单/客户'/></div></form></div><div id='edj-v2-fnav-box' class='edj-v2-fnav-box'><ul class='edj-v2-fnavs'></ul><div id='edj-v2-fnav-switch' class='edj-v2-fnav-switch'><div class='edj-v2-fnav-btn'></div></div></div>"
             }, //参数配置
             init: function() {
                 var that = this;
@@ -87,7 +87,8 @@
                     var btn = $(this).find(".edj-v2-fnav-btn");
                     var treat = $("#edj-v2-fnav-box");
                     var cli = $(".edj-v2-fnavs > li div"),
-                        pcli = cli.parent();
+                        pcli = cli.parent(),
+                        ev2hna = $("#edj-v2-hnav");
                     if (treat.hasClass("edj-v2-fnav-box-exp")) {
                         treat.removeClass("edj-v2-fnav-box-exp");
                         btn.removeClass("edj-v2-fnav-active");
@@ -95,11 +96,19 @@
                         pcli.removeClass("tree-branch-show");
                         cli.siblings("ul").hide();
                         cli.find("span.right-arr").removeClass("active-arr").hide();
+                        ev2hna.find("img.edj-v2-logo").attr("src", "SLogo.png").css({
+                            "width": "28px",
+                            "marginLeft": "11px"
+                        });;
                     } else {
                         treat.addClass("edj-v2-fnav-box-exp");
                         btn.addClass("edj-v2-fnav-active");
                         treat.find(".edj-v2-fnavs .edj-v2-tree-title").css("display", "inline-block");
                         cli.find("span.right-arr").show();
+                        ev2hna.find("img.edj-v2-logo").attr("src", "Logo.png").css({
+                            "width": "auto",
+                            "marginLeft": "50px"
+                        });
                     }
                 }).delegate(".edj-v2-fnavs div", "click", function() {
                     if ($("#edj-v2-fnav-box").hasClass("edj-v2-fnav-box-exp")) {
@@ -117,6 +126,24 @@
                                 pcli.addClass("tree-branch-show");
                             }
                         }
+                    } else {
+                        var btn = $("#edj-v2-fnav-switch").find(".edj-v2-fnav-btn");
+                        var treat = $("#edj-v2-fnav-box");
+                        var cli = $(".edj-v2-fnavs > li div"),
+                            pcli = cli.parent();
+                        $("#edj-v2-fnav-box").addClass("edj-v2-fnav-box-exp");
+                        treat.addClass("edj-v2-fnav-box-exp");
+                        btn.addClass("edj-v2-fnav-active");
+                        treat.find(".edj-v2-fnavs .edj-v2-tree-title").css("display", "inline-block");
+                        cli.find("span.right-arr").show();
+                        $("#edj-v2-hnav").find("img.edj-v2-logo").attr("src", "Logo.png").css({
+                            "width": "auto",
+                            "marginLeft": "50px"
+                        });
+                    }
+                }).delegate("#edj_v2_submit", "click", function() {
+                    if ($.trim($("#edj-v2-search").val()).length <= 0) {
+                        alert("请输入搜索内");
                     }
                 });
             }
@@ -129,7 +156,7 @@
                 navList: [{
                     label: "我的控制台",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }, {
                     label: "待办事项",
                     hasSub: true,
@@ -143,21 +170,21 @@
                         navList: [{
                             label: "公告事项1",
                             hasSub: false,
-                            link: "http://www.youku.com"
+                            link: "http://www.edaijia.cn"
                         }, {
                             label: "公告事项2",
                             hasSub: false,
-                            link: "http://www.youku.com"
+                            link: "http://www.edaijia.cn"
                         }]
                     }]
                 }, {
                     label: "待办事项3",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }, {
                     label: "待办事项4",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }]
             }, {
                 label: "公告",
@@ -166,11 +193,11 @@
                 navList: [{
                     label: "公告事项1",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }, {
                     label: "公告事项2",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }]
             }, {
                 label: "运营",
@@ -179,11 +206,11 @@
                 navList: [{
                     label: "运营事项1",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }, {
                     label: "运营事项2",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }]
             }, {
                 label: "呼叫中心",
@@ -192,11 +219,11 @@
                 navList: [{
                     label: "呼叫中心1",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }, {
                     label: "呼叫中心2",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }]
             }, {
                 label: "客户",
@@ -205,11 +232,11 @@
                 navList: [{
                     label: "客户事项1",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }, {
                     label: "客户事项2",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }]
             }, {
                 label: "品牌监控",
@@ -218,24 +245,24 @@
                 navList: [{
                     label: "品牌监控事项1",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }, {
                     label: "品牌监控事项2",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }]
             }, {
-                label: "员工管理",
+                label: "司机管理",
                 hasSub: true,
                 className: "edj-v2-ico-driverm",
                 navList: [{
-                    label: "员工管理事项1",
+                    label: "司机管理事项1",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }, {
-                    label: "员工管理事项2",
+                    label: "司机管理事项2",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }]
             }, {
                 label: "市场",
@@ -244,11 +271,11 @@
                 navList: [{
                     label: "市场事项1",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }, {
                     label: "市场事项2",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }]
             }, {
                 label: "财务",
@@ -257,11 +284,11 @@
                 navList: [{
                     label: "财务事项1",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }, {
                     label: "财务事项2",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }]
             }, {
                 label: "系统",
@@ -270,16 +297,30 @@
                 navList: [{
                     label: "系统事项1",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }, {
                     label: "系统事项2",
                     hasSub: false,
-                    link: "http://www.youku.com"
+                    link: "http://www.edaijia.cn"
                 }]
             }];
-            new FLNav({
+            // var url = "/index.php?r=default/left";
+            // $.ajax({
+            //     url: url,
+            //     type: type || 'GET',
+            //     data: {},
+            //     crossDomain: true,
+            //     dataType: 'json',
+            //     timeout: 5000,
+            //     error:function(){},
+            //     success: function(data) {
+            new FNav({
                 NLData: testData
             });
+            //     }
+            // });
+            // $.when($.getScript("http://h5.edaijia.cn/core/utils/jquery.md5.js"),
+            //     $.getScript("http://h5.edaijia.cn/core/libs/common.js")).then(function() {});
         });
     });
 }())
